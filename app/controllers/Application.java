@@ -15,7 +15,7 @@ import models.MetaDica;
 import models.OrganizaPorConcordancia;
 import models.OrganizaPorDiscordancia;
 import models.Organizador;
-import models.OrganizarPorMaisRecentes;
+import models.OrganizaPorMaisRecentes;
 import models.Tema;
 import models.dao.GenericDAOImpl;
 import play.Logger;
@@ -36,7 +36,7 @@ public class Application extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result index() {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
-		
+		result = getDezUltimas();
 		return ok(views.html.index.render(disciplinas, result));
     }
 	
@@ -50,7 +50,7 @@ public class Application extends Controller {
 		String tipoOrdenar = formMap.get("ordenar");
 		switch (tipoOrdenar) {
 		case "ultimas":
-			organiza = new OrganizarPorMaisRecentes();
+			organiza = new OrganizaPorMaisRecentes();
 			break;
 		case "concordancia":
 			organiza = new OrganizaPorConcordancia();
@@ -79,7 +79,7 @@ public class Application extends Controller {
 	}
 	
 	private static List<Dica> getDezUltimas() {
-		organiza = new OrganizaPorConcordancia(); 
+		organiza = new OrganizaPorMaisRecentes(); 
 		List<Dica> dicas = dao.findAllByClassName(Dica.class.getName());
 		organiza.sort(dicas);
 		return getDezDicas(dicas);		

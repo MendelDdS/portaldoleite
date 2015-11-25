@@ -81,6 +81,9 @@
             			
             			<ul class="uk-nav uk-nav-side">
 							<li class="uk-divider"></li>
+							@if(dicas.isEmpty()) {
+                            	<p>Ainda não há dicas.</p>
+                        	}
 							@for(dica <- dicas){
 							<hr class="uk-article-divider">
 	            			<div class="uk-panel uk-panel-box dica" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">

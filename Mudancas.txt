@@ -1,0 +1,3 @@
+Classe Application: O método cadastrarDica(idTema) utilizava várias vezes as mesmas linhas de código, então isso foi reduzido a um método que faz todo o trabalho.
+
+Classe Tema: Agora os métodos getMedia() e getMediana() não fazem todo o trabalho dos cálculos.

@@ -114,6 +114,10 @@ public class Tema {
 		List<String> difficultyVotes = new ArrayList<String>(this.usersDifficulty.values());
 		
 		Collections.sort(difficultyVotes);
+		return calcularMediana(difficultyVotes);
+	}
+	
+	private String calcularMediana(List<String> difficultyVotes) {
 		int totalVotes = difficultyVotes.size();
 		if (totalVotes == 0) {
 			return "0";
@@ -134,6 +138,10 @@ public class Tema {
 	public String getMedia() {
 		List<String> difficultyVotes = new ArrayList<String>(this.usersDifficulty.values());
 		
+		return calcularMedia(difficultyVotes); 
+	}
+	
+	private String calcularMedia(List<String> difficultyVotes) {
 		int totalVotes = difficultyVotes.size();
 		if(totalVotes == 0){
 			return "0";

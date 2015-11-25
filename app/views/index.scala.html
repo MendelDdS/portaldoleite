@@ -83,33 +83,35 @@
 							<li class="uk-divider"></li>
 							@for(dica <- dicas){
 							<hr class="uk-article-divider">
-							<div class="uk-panel uk-panel-box dica" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-								<h3>Disciplina:
+	            			<div class="uk-panel uk-panel-box dica" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+                            	<h3>Disciplina:
             					@for(disciplina <- disciplinas){
-            					@if(dica.getTema() == disciplina.getTemaByNome(dica.getTema().getName())){
-            						<li class="uk-nav-header">@disciplina.getNome()</li>
-            					}            					
-            					}</h3>
-           						<hr class="uk-article-divider-orange">
-								
-								@if(dica.getTipo().equals("DicaDisciplina")) {
-                                        <strong><p>Disciplinas úteis:</p></strong> <p class="uk-text-primary">@dica.getTexto()</p>
+	            					@if(dica.getTema() == disciplina.getTemaByNome(dica.getTema().getName())){
+            							<li class="uk-nav-header">@disciplina.getNome()</li>
+            						}            					
+            						}</h3>
+            						<hr class="uk-article-divider-orange">
+            					
+                                	<p>Tema:<a style="color:#a8ff00;" href="tema/@dica.getTema.getId()"> @dica.getTema.getName()</a></p> 
+                                    @if(!dica.wasFlaggedByUser(session.get("login"))) {
+                                        <form name="formDenunciar@dica.getId()" method="post" action="/denunciarDica/@dica.getId()"></form>
+                                    }
+                                    @if(dica.getTipo().equals("DicaDisciplina")) {
+                                        <p>Disciplinas importantes:</p> <p class="normal-font">@dica.getTexto()</p>
                                     }
                                     @if(dica.getTipo().equals("DicaMaterial")) {
-                                        <strong><p>Link útil:</p></strong> <a href="@dica.getTexto()">@dica.getTexto()</a>
+                                        <p>Link para material útil:</p> <a href="@dica.getTexto()">@dica.getTexto()</a>
                                     }
                                     @if(dica.getTipo().equals("DicaConselho")) {
-                                        <strong><p>Conselho:</p></strong> <p class="uk-text-primary">@dica.getTexto()</p>
+                                        <p>Conselho:</p> <p class="normal-font">@dica.getTexto()</p>
                                     }
                                     @if(dica.getTipo().equals("DicaAssunto")) {
-                                        <strong><p>Assuntos importantes:</p></strong> <p class="uk-text-primary">@dica.getTexto()</p>
+                                        <p>Assuntos importantes:</p> <p class="normal-font">@dica.getTexto()</p>
                                     }
-           						
-           						<h5>Tema: @dica.getTema().getName()</h5>
-            					
-            				
-								<li class="uk-divider"></li>
-								</div>
+                                <hr class="uk-article-divider-green">
+                                <p class="uk-article-meta uk-text-right">por @dica.getUser()</p>
+                                
+                            </div>
 							}
             			</ul>
             	</div>

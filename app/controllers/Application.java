@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,10 @@ import models.DicaDisciplina;
 import models.DicaMaterial;
 import models.Disciplina;
 import models.MetaDica;
+import models.OrganizaPorConcordancia;
+import models.OrganizaPorDiscordancia;
+import models.Organizador;
+import models.OrganizarPorMaisRecentes;
 import models.Tema;
 import models.dao.GenericDAOImpl;
 import play.Logger;
@@ -24,13 +29,61 @@ import play.mvc.Security;
 public class Application extends Controller {
 	private static final int MAX_DENUNCIAS = 3;
 	private static GenericDAOImpl dao = new GenericDAOImpl();
+	private static Organizador organiza;
+	private static List<Dica> result = getDezUltimas();
 	
 	@Transactional
 	@Security.Authenticated(Secured.class)
     public static Result index() {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
-        return ok(views.html.index.render(disciplinas));
+		
+		return ok(views.html.index.render(disciplinas, result));
     }
+	
+	@Transactional
+	public static Result getOrdenacao(){
+		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
+		List<Dica> dicas = dao.findAllByClassName(Dica.class.getName());
+		DynamicForm filledForm = Form.form().bindFromRequest();
+		Map<String, String> formMap = filledForm.data();
+
+		String tipoOrdenar = formMap.get("ordenar");
+		switch (tipoOrdenar) {
+		case "ultimas":
+			organiza = new OrganizarPorMaisRecentes();
+			break;
+		case "concordancia":
+			organiza = new OrganizaPorConcordancia();
+			break; 
+		case "discordancia":
+			organiza = new OrganizaPorDiscordancia();
+			break;
+		}		
+		organiza.sort(dicas);
+		result = getDezDicas(dicas);
+		return ok(views.html.index.render(disciplinas, getDezDicas(dicas)));
+	}
+	
+	private static List<Dica> getDezDicas(List<Dica> ultimasDicas){
+		List<Dica> dezUltimasDicas = new ArrayList();
+		
+		try{
+			for(int i=0; i < 10; i++){
+				dezUltimasDicas.add(ultimasDicas.get(i));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return dezUltimasDicas;
+	}
+	
+	private static List<Dica> getDezUltimas() {
+		organiza = new OrganizaPorConcordancia(); 
+		List<Dica> dicas = dao.findAllByClassName(Dica.class.getName());
+		organiza.sort(dicas);
+		return getDezDicas(dicas);		
+	}
 	
 	@Transactional
 	@Security.Authenticated(Secured.class)

@@ -1,4 +1,4 @@
-@(disciplinas: List[Disciplina])
+@(disciplinas: List[Disciplina], dicas: List[Dica])
 
 <!DOCTYPE html>
 
@@ -56,6 +56,62 @@
             			</div>
             			<p>Escolha uma disciplina ou tema ao lado para acessar os leites.</p>
             		</div>
+            		<ul class="uk-nav uk-nav-side">
+					<li class="uk-divider"></li>
+             		<div class="uk-panel uk-panel-box">
+             			<div class="uk-article">
+		                <hr>
+                        <h2>Algumas dicas:</h2>
+                        <p>Organizar por:</p>
+						<form class="uk-form left" method="GET" action="@routes.Application.getOrdenacao()"> 
+	                    	<span></span>                        
+   							<select name="ordenar"> 
+   								<option value="ultimas">Últimas dicas</option>
+                       			<option value="concordancia">Dicas com mais concordância</option>
+                       			<option value="discordancia">Dicas com mais discordância</option>
+   							</select>
+   							<button class="uk-button uk-button-primary uk-button-large uk-align-right">Ordenar</button>
+						</form>
+		                </div>
+		            </div>
+             				<li class="uk-divider"></li>
+             				<li class="uk-divider"></li>
+					
+            			</ul>
+            			
+            			<ul class="uk-nav uk-nav-side">
+							<li class="uk-divider"></li>
+							@for(dica <- dicas){
+							<hr class="uk-article-divider">
+							<div class="uk-panel uk-panel-box dica" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+								<h3>Disciplina:
+            					@for(disciplina <- disciplinas){
+            					@if(dica.getTema() == disciplina.getTemaByNome(dica.getTema().getName())){
+            						<li class="uk-nav-header">@disciplina.getNome()</li>
+            					}            					
+            					}</h3>
+           						<hr class="uk-article-divider-orange">
+								
+								@if(dica.getTipo().equals("DicaDisciplina")) {
+                                        <strong><p>Disciplinas úteis:</p></strong> <p class="uk-text-primary">@dica.getTexto()</p>
+                                    }
+                                    @if(dica.getTipo().equals("DicaMaterial")) {
+                                        <strong><p>Link útil:</p></strong> <a href="@dica.getTexto()">@dica.getTexto()</a>
+                                    }
+                                    @if(dica.getTipo().equals("DicaConselho")) {
+                                        <strong><p>Conselho:</p></strong> <p class="uk-text-primary">@dica.getTexto()</p>
+                                    }
+                                    @if(dica.getTipo().equals("DicaAssunto")) {
+                                        <strong><p>Assuntos importantes:</p></strong> <p class="uk-text-primary">@dica.getTexto()</p>
+                                    }
+           						
+           						<h5>Tema: @dica.getTema().getName()</h5>
+            					
+            				
+								<li class="uk-divider"></li>
+								</div>
+							}
+            			</ul>
             	</div>
             </div>
         </div>

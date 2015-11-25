@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,8 +61,21 @@ public abstract class Dica implements Comparable<Dica>{
 	@Transient
 	private DicaDisciplina instanciaDisciplina;
 	
-	public Dica(){}
+	private Calendar data;
+	
+	public Dica(){
+		usuariosQueJaVotaram = new ArrayList<String>();
+		usuarioqueQueJaDenunciaram = new ArrayList<String>();
+		data = new GregorianCalendar();
+		
+	}
 
+	public Calendar getData() {
+		return data;
+	}
+   public void setData(int year, int month, int dayOfMonth, int hourOfDay, int minute){
+	   data.set(year, month, dayOfMonth, hourOfDay, minute);
+   }
 	public Tema getTema() {
 		return tema;
 	}

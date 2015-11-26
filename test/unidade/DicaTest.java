@@ -53,7 +53,7 @@ public class DicaTest {
 		tema.addDica(dica1);
 		
 		assertThat(dica1.getTema().getDicas().get(0)).isEqualTo(dica1);
-		assertThat(dica1.getTema().getName()).isEqualTo("Transformações lineares");
+		assertThat(dica1.getTema().getNome()).isEqualTo("Transformações lineares");
 	}
 	
 	/**

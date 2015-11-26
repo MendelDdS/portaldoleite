@@ -23,7 +23,7 @@ public class DisciplinaTest {
 		disciplina.addTema(tema);
 		
 		assertThat(disciplina.getTemas().size()).isEqualTo(1);
-		assertThat(disciplina.getTemaByNome("Programação Dinâmica").getName()).isEqualTo("Programação Dinâmica");
+		assertThat(disciplina.getTemaByNome("Programação Dinâmica").getNome()).isEqualTo("Programação Dinâmica");
 	}
 	
 	@Test

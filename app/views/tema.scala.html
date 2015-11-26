@@ -42,9 +42,9 @@
             				<li class="uk-nav-header"><a href="/disciplina/@disciplina.getId()">@disciplina.getNome()</a></li>
             					@for(tema <- disciplina.getTemas()){
             						@if(tema.getId() == temaAtual.getId()){
-            							<li class="uk-active"><a href="/tema/@tema.getId()">@tema.getName()</a></li>
+            							<li class="uk-active"><a href="/tema/@tema.getId()">@tema.getNome()</a></li>
             						}else{
-            							<li class="uk-parent"><a href="/tema/@tema.getId()">@tema.getName()</a></li>
+            							<li class="uk-parent"><a href="/tema/@tema.getId()">@tema.getNome()</a></li>
             						}
 								}
 								<li class="uk-divider"></li>
@@ -59,7 +59,7 @@
 	            				<h2>Dicas</h2>
             				<div>
             					<a class="uk-article-meta uk-text-success" data-uk-modal="{target:'#avaliacao-modal'}">
-            					Informações sobre <strong>"@temaAtual.getName()" <i class="uk-icon-hover uk-icon-info-circle"></i></a>
+            					Informações sobre <strong>"@temaAtual.getNome()" <i class="uk-icon-hover uk-icon-info-circle"></i></a>
             					<div class="uk-button-dropdown uk-align-right" data-uk-dropdown="{mode:'click'}">
             						<button class="uk-button uk-button-primary uk-button uk-align-right"><i class="uk-icon-plus"></i> Adicionar dica
             						<i class="uk-icon-caret-down"></i>
@@ -175,7 +175,7 @@
         <div id="avaliacao-modal" class="uk-modal">
         	<div class="uk-modal-dialog">
 	        	<a class="uk-modal-close uk-close"></a>
-				<div class="uk-modal-header" style="background-color:#5f5f5f"><h2>Avaliação da dificuldade de "@temaAtual.getName()"</h2></div>
+				<div class="uk-modal-header" style="background-color:#5f5f5f"><h2>Avaliação da dificuldade de "@temaAtual.getNome()"</h2></div>
 				<div class="uk-article">
 					<h3 class="uk-h3">Dificuldade do tema</h3>
 					<p class="normal-font">Média: @temaAtual.getMedia()</p>

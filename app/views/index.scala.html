@@ -39,7 +39,7 @@
 							@for(disciplina <- disciplinas){
            						<li class="uk-nav-header"><a href="/disciplina/@disciplina.getId()">@disciplina.getNome()</a></li>
             					@for(tema <- disciplina.getTemas()){
-           							<li class="uk-parent"><a href="/tema/@tema.getId()">@tema.getName()</a></li>
+           							<li class="uk-parent"><a href="/tema/@tema.getId()">@tema.getNome()</a></li>
 								}
 								<li class="uk-divider"></li>
 							}
@@ -90,13 +90,13 @@
 	            			<div class="uk-panel uk-panel-box dica" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
                             	<h3>Disciplina:
             					@for(disciplina <- disciplinas){
-	            					@if(dica.getTema() == disciplina.getTemaByNome(dica.getTema().getName())){
+	            					@if(dica.getTema() == disciplina.getTemaByNome(dica.getTema().getNome())){
             							<li class="uk-nav-header">@disciplina.getNome()</li>
             						}            					
             						}</h3>
             						<hr class="uk-article-divider-orange">
             					
-                                	<p>Tema:<a style="color:#a8ff00;" href="tema/@dica.getTema.getId()"> @dica.getTema.getName()</a></p> 
+                                	<p>Tema:<a style="color:#a8ff00;" href="tema/@dica.getTema.getId()"> @dica.getTema.getNome()</a></p> 
                                     
                                     @if(dica.getTipo().equals("DicaDisciplina")) {
                                         <p>Disciplinas importantes:</p> <p class="normal-font">@dica.getTexto()</p>
@@ -118,7 +118,7 @@
                             <div id="@dica.getId()" class="uk-modal">
     						    <div class="uk-modal-dialog">
     						    	<div class="uk-modal-header-primary">
-    						    		<h2>Tema:<a style="color:#a8ff00;" href="tema/@dica.getTema.getId()"> @dica.getTema.getName()</a></h2> 
+    						    		<h2>Tema:<a style="color:#a8ff00;" href="tema/@dica.getTema.getId()"> @dica.getTema.getNome()</a></h2> 
     						    	</div>    						    
     						    	<div class="uk-modal-footer-primary">
     						    		<h4>Concordâncias <i class="uk-icon-hover uk-icon-thumbs-o-up" style="color:#a8ff00;"></i>: @dica.getConcordancias()</h4>

@@ -68,7 +68,7 @@ public class Disciplina {
 	
 	public Tema getTemaByNome(String nome){
 		for (Tema tema: temas) {
-			if(tema.getName().equals(nome)){
+			if(tema.getNome().equals(nome)){
 				return tema;
 			}
 		}

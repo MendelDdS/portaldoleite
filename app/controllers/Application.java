@@ -232,7 +232,7 @@ public class Application extends Controller {
 			String discordancia = formMap.get("discordancia");
 			
 			dica.addUsuarioQueVotou(login);
-			dica.addUserCommentary(username, discordancia);
+			dica.addComentarioDeUsuario(username, discordancia);
 			dica.incrementaDiscordancias();
 			dao.merge(dica);
 			dao.flush();
@@ -246,7 +246,7 @@ public class Application extends Controller {
 	public static Result upVoteDica(long idDica) {
 		Dica dica = dao.findByEntityId(Dica.class, idDica);
 		String login = session("login");
-		if(!dica.wasVotedByUser(login)){
+		if(!dica.foiVotadoPeloUsuario(login)){
 			dica.addUsuarioQueVotou(login);
 			dica.incrementaConcordancias();
 			dao.merge(dica);
@@ -272,7 +272,7 @@ public class Application extends Controller {
 			String discordancia = formMap.get("discordancia");
 			
 			metaDica.addUsuarioQueVotou(login);
-			metaDica.addUserCommentary(username, discordancia);
+			metaDica.addComentarioDeUsuario(username, discordancia);
 			metaDica.incrementaDiscordancias();
 			dao.merge(metaDica);
 			dao.flush();
@@ -286,7 +286,7 @@ public class Application extends Controller {
 	public static Result upVoteMetaDica(long idMetaDica) {
 		MetaDica metaDica = dao.findByEntityId(MetaDica.class, idMetaDica);
 		String login = session("login");
-		if(!metaDica.wasVotedByUser(login)){
+		if(!metaDica.foiVotadoPeloUsuario(login)){
 			metaDica.addUsuarioQueVotou(login);
 			metaDica.incrementaConcordancias();
 			dao.merge(metaDica);
@@ -386,7 +386,7 @@ public class Application extends Controller {
 		Dica dica = dao.findByEntityId(Dica.class, idDica);
 		
 		String login = session("login");
-		if (!dica.wasFlaggedByUser(login)) {
+		if (!dica.foiDenunciadoPeloUsuario(login)) {
 			dica.addUsuarioFlag(login);
 			dica.incrementaFlag();
 			
@@ -424,7 +424,7 @@ public class Application extends Controller {
 		MetaDica metaDica = dao.findByEntityId(MetaDica.class, idMetaDica);
 		
 		String login = session("login");
-		if (!metaDica.wasFlaggedByUser(login)) {
+		if (!metaDica.foiDenunciadoPeloUsuario(login)) {
 			metaDica.addUsuarioFlag(login);
 			metaDica.incrementaFlag();
 			

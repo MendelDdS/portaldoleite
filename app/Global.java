@@ -147,15 +147,15 @@ public class Global extends GlobalSettings {
 	
 	private void cadastraVotos() {
 		dcConselho.incrementaDiscordancias();
-		dcConselho.addUserCommentary(user3.getLogin(), "Vida no inferno");
+		dcConselho.addComentarioDeUsuario(user3.getLogin(), "Vida no inferno");
 		dcConselho.addUsuarioQueVotou(user3.getNome());
 		
 		dcConselho.incrementaDiscordancias();
-		dcConselho.addUserCommentary(user1.getLogin(), "Quer apanhar cara?");
+		dcConselho.addComentarioDeUsuario(user1.getLogin(), "Quer apanhar cara?");
 		dcConselho.addUsuarioQueVotou(user1.getNome());
 		
 		dcConselho.incrementaDiscordancias();
-		dcConselho.addUserCommentary(user9.getLogin(), "Mas alloy é bom mesmo");
+		dcConselho.addComentarioDeUsuario(user9.getLogin(), "Mas alloy é bom mesmo");
 		dcConselho.addUsuarioQueVotou(user9.getNome());
 		
 		dao.persist(dcConselho);
@@ -183,7 +183,7 @@ public class Global extends GlobalSettings {
 		dao.persist(dcAssunto);
 		
 		dcDisciplina.incrementaDiscordancias();
-		dcDisciplina.addUserCommentary(user10.getLogin(), "Não cara, esse assunto não tem em discreta");
+		dcDisciplina.addComentarioDeUsuario(user10.getLogin(), "Não cara, esse assunto não tem em discreta");
 		dcDisciplina.addUsuarioQueVotou(user10.getNome());
 		
 		dao.persist(dcDisciplina);

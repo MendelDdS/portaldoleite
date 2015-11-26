@@ -73,8 +73,8 @@ public class MetaDicaTest {
 	 */
 	@Test
 	public void deveAdicionarComentariosDeDiscordantes() {
-		metadica1.addUserCommentary(user.getNome(), "I go back on my indication, wisdom sucks, yoloswag 420 blaze it");
-		assertThat(metadica1.getUsersCommentaries().get("Lao Tsé")).isEqualTo("I go back on my indication, wisdom sucks, yoloswag 420 blaze it");
+		metadica1.addComentarioDeUsuario(user.getNome(), "I go back on my indication, wisdom sucks, yoloswag 420 blaze it");
+		assertThat(metadica1.getComentariosDeUsuarios().get("Lao Tsé")).isEqualTo("I go back on my indication, wisdom sucks, yoloswag 420 blaze it");
 	}
 	
 	/**

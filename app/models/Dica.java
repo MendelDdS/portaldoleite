@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -32,13 +33,13 @@ public abstract class Dica implements Comparable<Dica>{
 	private Tema tema;
 	
 	@Column
-	private String username;
+	private String nomeDeUsuario;
 	
 	@ElementCollection
     @MapKeyColumn(name="user_dica")
     @Column(name="commentary")
     @CollectionTable(name="users_comm", joinColumns=@JoinColumn(name="dica_id"))
-	private Map<String, String> usersCommentaries;
+	private Map<String, String> comentariosDeUsuarios;
 	
 	@ElementCollection
 	private List<String> usuariosQueJaVotaram;
@@ -61,40 +62,38 @@ public abstract class Dica implements Comparable<Dica>{
 	@Transient
 	private DicaDisciplina instanciaDisciplina;
 	
-	private Calendar data;
+	@Column
+	private Date dataDeCriacao;
 	
 	public Dica(){
 		usuariosQueJaVotaram = new ArrayList<String>();
 		usuarioqueQueJaDenunciaram = new ArrayList<String>();
-		data = new GregorianCalendar();
-		
+		dataDeCriacao = Calendar.getInstance().getTime();
 	}
 
-	public Calendar getData() {
-		return data;
+	public Date getDataDeCriacao() {
+		return this.dataDeCriacao;
 	}
-   public void setData(int year, int month, int dayOfMonth, int hourOfDay, int minute){
-	   data.set(year, month, dayOfMonth, hourOfDay, minute);
-   }
+	
 	public Tema getTema() {
 		return tema;
 	}
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
-		this.usersCommentaries = new HashMap<String,String>();
+		this.comentariosDeUsuarios = new HashMap<String,String>();
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public Map<String, String> getUsersCommentaries() {
-		return usersCommentaries;
+	public Map<String, String> getComentariosDeUsuarios() {
+		return comentariosDeUsuarios;
 	}
 	
-	public void addUserCommentary(String login, String commentary) {
-		usersCommentaries.put(login, commentary);
+	public void addComentarioDeUsuario(String login, String commentary) {
+		comentariosDeUsuarios.put(login, commentary);
 	}
 	
 	public abstract String getTexto();
@@ -140,18 +139,18 @@ public abstract class Dica implements Comparable<Dica>{
 	}
 
 	public String getUser() {
-		return username;
+		return nomeDeUsuario;
 	}
 
 	public void setUser(String user) {
-		this.username = user;
+		this.nomeDeUsuario = user;
 	}
 	
 	public void addUsuarioQueVotou(String user){
 		usuariosQueJaVotaram.add(user);
 	}
 	
-	public boolean wasVotedByUser(String user){
+	public boolean foiVotadoPeloUsuario(String user){
 		return usuariosQueJaVotaram.contains(user); 
 	}
 
@@ -184,7 +183,7 @@ public abstract class Dica implements Comparable<Dica>{
 		this.usuarioqueQueJaDenunciaram.add(user);
 	}
 	
-	public boolean wasFlaggedByUser(String user) {
+	public boolean foiDenunciadoPeloUsuario(String user) {
 		return usuarioqueQueJaDenunciaram.contains(user);
 	}
 	

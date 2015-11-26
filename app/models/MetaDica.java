@@ -28,10 +28,10 @@ public class MetaDica implements Comparable<MetaDica> {
 	private Long id;
 	
 	@Column
-	private String username;
+	private String nomeDeUsuario;
 	
 	@Column
-	private String comment;
+	private String comentario;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	private List<Dica> dicasAdicionadas;
@@ -49,7 +49,7 @@ public class MetaDica implements Comparable<MetaDica> {
     @MapKeyColumn(name="user_meta")
     @Column(name="commentary")
     @CollectionTable(name="meta_comm", joinColumns=@JoinColumn(name="dica_id"))
-	private Map<String, String> usersCommentaries;
+	private Map<String, String> comentariosDeUsuarios;
 	
 	@ManyToOne
 	private Disciplina disciplina;
@@ -65,31 +65,31 @@ public class MetaDica implements Comparable<MetaDica> {
 	
 	public MetaDica(){}
 	
-	public MetaDica(Disciplina disciplina, String user, String comment) {
+	public MetaDica(Disciplina disciplina, String user, String comentario) {
 		this.disciplina = disciplina;
-		this.username = user;
-		this.comment = comment;
+		this.nomeDeUsuario = user;
+		this.comentario = comentario;
 		this.dicasAdicionadas = new ArrayList<Dica>();
 		this.metaDicasAdicionadas = new ArrayList<MetaDica>();
 		this.usuarioqueQueJaDenunciaram = new ArrayList<String>();
 		this.usuariosQueJaVotaram = new ArrayList<String>();
-		this.usersCommentaries = new HashMap<String, String>();
+		this.comentariosDeUsuarios = new HashMap<String, String>();
 	}
 
 	public String getUser() {
-		return username;
+		return nomeDeUsuario;
 	}
 
 	public void setUser(String user) {
-		this.username = user;
+		this.nomeDeUsuario = user;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getComentario() {
+		return comentario;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
 	}
 
 	public int getConcordancias() {
@@ -163,19 +163,19 @@ public class MetaDica implements Comparable<MetaDica> {
 		usuariosQueJaVotaram.add(user);
 	}
 	
-	public boolean wasVotedByUser(String user){
+	public boolean foiVotadoPeloUsuario(String user){
 		return usuariosQueJaVotaram.contains(user); 
 	}
 	
-	public void addUserCommentary(String login, String commentary) {
-		usersCommentaries.put(login, commentary);
+	public void addComentarioDeUsuario(String login, String commentary) {
+		comentariosDeUsuarios.put(login, commentary);
 	}
 	
 	public void addUsuarioFlag(String user) {
 		this.usuarioqueQueJaDenunciaram.add(user);
 	}
 	
-	public boolean wasFlaggedByUser(String user) {
+	public boolean foiDenunciadoPeloUsuario(String user) {
 		return usuarioqueQueJaDenunciaram.contains(user);
 	}
 	
@@ -235,12 +235,12 @@ public class MetaDica implements Comparable<MetaDica> {
 		this.usuarioqueQueJaDenunciaram = usuarioqueQueJaDenunciaram;
 	}
 
-	public Map<String, String> getUsersCommentaries() {
-		return usersCommentaries;
+	public Map<String, String> getComentariosDeUsuarios() {
+		return comentariosDeUsuarios;
 	}
 
-	public void setUsersCommentaries(Map<String, String> usersCommentaries) {
-		this.usersCommentaries = usersCommentaries;
+	public void setComentariosDeUsuarios(Map<String, String> usersCommentaries) {
+		this.comentariosDeUsuarios = usersCommentaries;
 	}
 
 	public void setDisciplina(Disciplina disciplina) {

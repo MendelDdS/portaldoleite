@@ -73,11 +73,11 @@ public class DicaTest {
 	@Test
 	public void deveArmazenarComentarioDeDiscordantes() {
 		dica1.setTema(tema);
-		dica1.addUserCommentary("schops", "Der Mensch kann tun was er will; er kann aber nicht wollen was er will. Dieses Tipp ist wie deine Mutter, es ist Scheiss.");
+		dica1.addComentarioDeUsuario("schops", "Der Mensch kann tun was er will; er kann aber nicht wollen was er will. Dieses Tipp ist wie deine Mutter, es ist Scheiss.");
 		dica1.incrementaDiscordancias();
 		
-		assertThat(dica1.getUsersCommentaries().size()).isEqualTo(1);
-		assertThat(dica1.getUsersCommentaries().get("schops")).isEqualTo("Der Mensch kann tun was er will; er kann aber nicht wollen was er will. Dieses Tipp ist wie deine Mutter, es ist Scheiss.");
+		assertThat(dica1.getComentariosDeUsuarios().size()).isEqualTo(1);
+		assertThat(dica1.getComentariosDeUsuarios().get("schops")).isEqualTo("Der Mensch kann tun was er will; er kann aber nicht wollen was er will. Dieses Tipp ist wie deine Mutter, es ist Scheiss.");
 		assertThat(dica1.getDiscordancias()).isEqualTo(1);
 	}
 	

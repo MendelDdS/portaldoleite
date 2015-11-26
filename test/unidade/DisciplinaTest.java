@@ -42,6 +42,6 @@ public class DisciplinaTest {
 		
 		assertThat(disciplina.getMetaDicas().size()).isEqualTo(1);
 		assertThat(disciplina.getMetaDicas().get(0).getDicasAdicionadas().size()).isEqualTo(2);
-		assertThat(disciplina.getMetaDicas().get(0).getComment()).isEqualTo("Estas dicas são as melhores.");
+		assertThat(disciplina.getMetaDicas().get(0).getComentario()).isEqualTo("Estas dicas são as melhores.");
 	}
 }

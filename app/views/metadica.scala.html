@@ -64,7 +64,7 @@
             			<div id="dicasList">
 	            			@for(dica <- metadicaAtual.getDicasAdicionadas()){
 	            			<div class="uk-panel uk-panel-box dica" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-            					@if(!dica.wasFlaggedByUser(session.get("login"))){
+            					@if(!dica.foiDenunciadoPeloUsuario(session.get("login"))){
 	            					<form name="formDenunciar@dica.getId()" method="post" action="/denunciarDica/@dica.getId()"></form>
 	            					<a data-uk-tooltip title="Denunciar" 
 	            						class="uk-text-warning uk-icon-hover uk-icon-flag uk-panel-badge" href="javascript:denunciarDica(@dica.getId())"></a>
@@ -88,12 +88,12 @@
 	            			}
 	            			@for(metadica <- metadicaAtual.getMetaDicasAdicionadas()){
 		            		<div class="uk-panel uk-panel-box dica" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-			            		@if(!metadica.wasFlaggedByUser(session.get("login"))){
+			            		@if(!metadica.foiDenunciadoPeloUsuario(session.get("login"))){
 		            				<form name="formDenunciarMeta@metadica.getId()" method="post" action="/denunciarMetaDica/@metadica.getId()"></form>
 		            				<a data-uk-tooltip title="Denunciar" 
 		            					class="uk-text-warning uk-icon-hover uk-icon-flag uk-panel-badge" href="javascript:denunciarMetaDica(@metadica.getId())"></a>
 		            			}
-		            			<p>Comentário: </p><p class="normal-font">@metadica.getComment()</p>
+		            			<p>Comentário: </p><p class="normal-font">@metadica.getComentario()</p>
 	            				<p class="uk-article-meta uk-text-right">por @metadica.getUser()</p>
             					<a href="/metadica/@metadica.getId()"><i class="uk-icon-plus"></i> Mostrar dicas</a>
 		            		</div>

@@ -20,10 +20,8 @@ import play.test.FakeRequest;
 import base.AbstractTest;
 
 
-public class RegistroTest extends AbstractTest{
+public class RegistroTest extends AcessoAbstractTest{
 
-	Result result;
-	
 	GenericDAO dao = new GenericDAOImpl();
 	
 	/**
@@ -45,16 +43,7 @@ public class RegistroTest extends AbstractTest{
 		
 		assertThat(users.size()).isEqualTo(10);
 
-		
-		FakeRequest fakeRequest = new FakeRequest();
-		Map<String, String> form = new HashMap<String, String>();
-		form.put("nome", "joao");
-		form.put("email", "a@b.c");
-		form.put("login", "joooao");
-		form.put("pass", "tchutchu");
-		fakeRequest.withFormUrlEncodedBody(form);
-		
-		result = callAction(controllers.routes.ref.Register.register(), fakeRequest);
+		cadastrarUsuario();
 		
 		assertThat(status(result)).isEqualTo(Http.Status.SEE_OTHER);
 		
@@ -68,18 +57,9 @@ public class RegistroTest extends AbstractTest{
 	 */
 	@Test
 	public void deveNaoPermitirCadastroDeUsuariosComMesmoLogin() {
-		FakeRequest fakeRequest1 = new FakeRequest();
-		Map<String, String> form1 = new HashMap<String, String>();
-		form1.put("nome", "joao");
-		form1.put("email", "abc@bbc.com");
-		form1.put("login", "mimimimi");
-		form1.put("pass", "tchutchu");
-		fakeRequest1.withFormUrlEncodedBody(form1);
-		
-		result = callAction(controllers.routes.ref.Register.register(), fakeRequest1);
-		
+		cadastrarUsuario();
 		assertThat(status(result)).isEqualTo(Http.Status.SEE_OTHER);
-		
+
 		List<User> users = dao.findAllByClassName("User");
 		
 		assertThat(users.size()).isEqualTo(11);
@@ -109,17 +89,7 @@ public class RegistroTest extends AbstractTest{
 	 */
 	@Test
 	public void deveNaoPermitirCadastroDeUsuariosComMesmoEmail() {
-		FakeRequest fakeRequest1 = new FakeRequest();
-		Map<String, String> form1 = new HashMap<String, String>();
-		form1.put("nome", "joao");
-		form1.put("email", "abc@bbc.com");
-		form1.put("login", "mimimimi");
-		form1.put("pass", "tchutchu");
-		fakeRequest1.withFormUrlEncodedBody(form1);
-		
-		result = callAction(controllers.routes.ref.Register.register(), fakeRequest1);
-		
-		assertThat(status(result)).isEqualTo(Http.Status.SEE_OTHER);
+		cadastrarUsuario();
 		
 		List<User> users = dao.findAllByClassName("User");
 		

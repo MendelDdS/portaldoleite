@@ -22,10 +22,8 @@ import play.test.FakeRequest;
 import base.AbstractTest;
 
 
-public class LoginTest extends AbstractTest{
+public class LoginTest extends AcessoAbstractTest {
 
-	Result result;
-	
 	GenericDAO dao = new GenericDAOImpl();
 	
 	/**
@@ -47,11 +45,7 @@ public class LoginTest extends AbstractTest{
 		assertThat(users.size()).isEqualTo(10);
 		
 		FakeRequest fakeRequest1 = new FakeRequest();
-		Map<String, String> form1 = new HashMap<String, String>();
-		
-		form1.put("login", "mimimimi");
-		form1.put("pass", "tchutchu");
-		fakeRequest1.withFormUrlEncodedBody(form1);
+		tentaFazerLogin(fakeRequest1);
 		
 		result = callAction(controllers.routes.ref.Login.authenticate(), fakeRequest1);
 		Map<String, String> flash = new HashMap<String, String>();
@@ -66,28 +60,15 @@ public class LoginTest extends AbstractTest{
 	 */
 	@Test
 	public void deveFazerLogin() {
-		FakeRequest fakeRequest1 = new FakeRequest();
-		Map<String, String> form1 = new HashMap<String, String>();
-		form1.put("nome", "joao");
-		form1.put("email", "abc@bbc.com");
-		form1.put("login", "mimimimi");
-		form1.put("pass", "tchutchu");
-		fakeRequest1.withFormUrlEncodedBody(form1);
-		
-		result = callAction(controllers.routes.ref.Register.register(), fakeRequest1);
+		cadastrarUsuario();
 		
 		assertThat(status(result)).isEqualTo(Http.Status.SEE_OTHER);
-		
+
 		List<User> users = dao.findAllByClassName("User");
-		
 		assertThat(users.size()).isEqualTo(11);
 		
 		FakeRequest fakeRequest2 = new FakeRequest();
-		Map<String, String> form2 = new HashMap<String, String>();
-		
-		form2.put("login", "mimimimi");
-		form2.put("pass", "tchutchu");
-		fakeRequest2.withFormUrlEncodedBody(form2);
+		tentaFazerLogin(fakeRequest2);
 		
 		assertThat(session(result)).isEqualTo(new HashMap<String, String>());
 		
@@ -100,4 +81,5 @@ public class LoginTest extends AbstractTest{
 		assertThat(status(result)).isEqualTo(Http.Status.SEE_OTHER);
 		assertThat(session(result)).isEqualTo(session);
 	}
+	
 }

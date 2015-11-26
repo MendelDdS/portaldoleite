@@ -22,7 +22,7 @@ import javax.persistence.Table;
 
 @Table(name="metadica")
 @Entity(name="MetaDica")
-public class MetaDica implements Comparable<MetaDica>{
+public class MetaDica implements Comparable<MetaDica> {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -117,6 +117,10 @@ public class MetaDica implements Comparable<MetaDica>{
 	}
 	
 	public String getIndiceConcordancia() {
+		return calculaIndiceConcordancia();
+	}
+	
+	private String calculaIndiceConcordancia() {
 		int soma = concordancias + discordancias;
 		if(soma == 0){
 			return "0";
@@ -188,6 +192,10 @@ public class MetaDica implements Comparable<MetaDica>{
 	}
 
 	public List<Dica> getDicasAdicionadas() {
+		return ajustaDicasAdicionadas();
+	}
+	
+	private List<Dica> ajustaDicasAdicionadas() {
 		Collections.sort(dicasAdicionadas);
 		
 		for (Dica dica : dicasAdicionadas) {
@@ -196,7 +204,7 @@ public class MetaDica implements Comparable<MetaDica>{
 		
 		return dicasAdicionadas;
 	}
-
+	
 	public void setDicasAdicionadas(List<Dica> dicasAdicionadas) {
 		this.dicasAdicionadas = dicasAdicionadas;
 	}

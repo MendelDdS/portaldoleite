@@ -1,7 +1,9 @@
-package models;
+package models.organizador;
 
 import java.util.List;
 import java.util.Collections;
+
+import models.Dica;
 
 public class OrganizaPorConcordancia implements Organizador {
 

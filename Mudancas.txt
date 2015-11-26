@@ -3,3 +3,6 @@ Classe Application: O método cadastrarDica(idTema) utilizava várias vezes as mes
 Classe Tema: Agora os métodos getMedia() e getMediana() não fazem os cálculos.
 
 Classes LoginTest e RegistroTest: As duas classes faziam a mesma coisa em alguns momentos, então esse dever foi passado para uma classe abstrata.
+
+Classe MetaDica: O método getIndiceConcordancia() não faz mais o calculo, foi criado um método para isso.
+		 O mesmo para o método getDicasAdicionadas() que fazia ajustes das dicas.

@@ -13,6 +13,7 @@
         <script src="@routes.Assets.at("javascripts/uikit.js")" type="text/javascript"></script>
     </head>
     <body ng-app="">
+
         <div class="uk-container uk-container-center">
     		<div id="topo" class="uk-panel">
 				<div class="uk-text-right">
@@ -96,14 +97,12 @@
             						<hr class="uk-article-divider-orange">
             					
                                 	<p>Tema:<a style="color:#a8ff00;" href="tema/@dica.getTema.getId()"> @dica.getTema.getName()</a></p> 
-                                    @if(!dica.wasFlaggedByUser(session.get("login"))) {
-                                        <form name="formDenunciar@dica.getId()" method="post" action="/denunciarDica/@dica.getId()"></form>
-                                    }
+                                    
                                     @if(dica.getTipo().equals("DicaDisciplina")) {
                                         <p>Disciplinas importantes:</p> <p class="normal-font">@dica.getTexto()</p>
                                     }
                                     @if(dica.getTipo().equals("DicaMaterial")) {
-                                        <p>Link para material útil:</p> <a href="@dica.getTexto()">@dica.getTexto()</a>
+                                        <p>Link para material útil:</p> <a href="@dica.getTexto()">@dica.getTexto()</a> <br><br>
                                     }
                                     @if(dica.getTipo().equals("DicaConselho")) {
                                         <p>Conselho:</p> <p class="normal-font">@dica.getTexto()</p>
@@ -111,10 +110,23 @@
                                     @if(dica.getTipo().equals("DicaAssunto")) {
                                         <p>Assuntos importantes:</p> <p class="normal-font">@dica.getTexto()</p>
                                     }
-                                <hr class="uk-article-divider-green">
+                                    <a href="#@dica.getId()" data-uk-modal>Ver mais detalhes</a>
+                            
+                                <hr class="uk-article-divider-orange">
                                 <p class="uk-article-meta uk-text-right">por @dica.getUser()</p>
-                                
                             </div>
+                            <div id="@dica.getId()" class="uk-modal">
+    						    <div class="uk-modal-dialog">
+    						    	<div class="uk-modal-header-primary">
+    						    		<h2>Tema:<a style="color:#a8ff00;" href="tema/@dica.getTema.getId()"> @dica.getTema.getName()</a></h2> 
+    						    	</div>    						    
+    						    	<div class="uk-modal-footer-primary">
+    						    		<h4>Concordâncias <i class="uk-icon-hover uk-icon-thumbs-o-up" style="color:#a8ff00;"></i>: @dica.getConcordancias()</h4>
+    						    		<h4>Discordâncias <i class="uk-icon-hover uk-icon-thumbs-o-down" style="color:#cc0000;"></i>: @dica.getDiscordancias()</h4>
+    						    		<h4>Avaliação da dica <i class="uk-icon-hover uk-icon-star-o" style="color:#ffcc00;"></i>: @dica.getIndiceConcordancia()</h4>
+    						    	</div>    						    	
+    						    </div>    								
+							</div>	
 							}
             			</ul>
             	</div>

@@ -7,6 +7,7 @@ import models.DicaConselho;
 import models.DicaDisciplina;
 import models.DicaMaterial;
 import models.Disciplina;
+import models.MetaDica;
 import models.Tema;
 import models.User;
 import models.dao.GenericDAOImpl;
@@ -20,8 +21,10 @@ public class Global extends GlobalSettings {
 
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
+	private Disciplina si1, logica, prob;
 	private User user1, user2, user3, user4, user5, user6, user7, user8, user9, user10;
 	private Dica dcConselho, dcMaterial, dcAssunto, dcDisciplina, dcConselho2;
+	private MetaDica mtDica;
 	private Tema alloy, play, tableaux, caract;
 	
 	@Override
@@ -56,7 +59,7 @@ public class Global extends GlobalSettings {
 	}
 	
 	private void criaDisciplinas(){
-		Disciplina si1 = new Disciplina("Sistemas de Informação 1");
+		this.si1 = new Disciplina("Sistemas de Informação 1");
 		
 		si1.addTema(new Tema("Análise x Design"));
 		si1.addTema(new Tema("Orientação a objetos"));
@@ -75,7 +78,7 @@ public class Global extends GlobalSettings {
 		dao.persist(si1);
 		
 		////////////////////////////////////////////////////////////////		
-		Disciplina prob = new Disciplina("Probabilidade e Estatistica");
+		this.prob = new Disciplina("Probabilidade e Estatistica");
 		prob.addTema(new Tema("Probabilidade"));
 		prob.addTema(new Tema("Variáveis Aleatórias"));
 		prob.addTema(new Tema("Variáveis Aleatórias Multidimensionais"));
@@ -88,7 +91,7 @@ public class Global extends GlobalSettings {
 		dao.persist(prob);
 		
 		////////////////////////////////////////////////////////////////
-		Disciplina logica = new Disciplina("Lógica Matemática");
+		this.logica = new Disciplina("Lógica Matemática");
 		
 		logica.addTema(new Tema("Lógica Proposicional"));
 		tableaux = new Tema("Tableaux");
@@ -121,6 +124,13 @@ public class Global extends GlobalSettings {
 		play.addDica(dcMaterial);
 		dao.persist(dcMaterial);
 		dao.persist(play);
+		
+		mtDica = new MetaDica(si1, user1.getNome(), "Use bastante o Google. E não esqueça de sempre revisar antes da aula.");
+		mtDica.addDica(dcMaterial);
+		si1.addMetaDica(mtDica);
+		dao.persist(dcMaterial);
+		dao.persist(mtDica);
+		dao.persist(si1);
 		
 		dcAssunto = new DicaConselho("Isso não cai nhem na prova");
 		dcAssunto.setUser(user4.getNome());

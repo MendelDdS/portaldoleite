@@ -63,12 +63,11 @@ public abstract class Dica implements Comparable<Dica>{
 	private DicaDisciplina instanciaDisciplina;
 	
 	@Column
-	private Date dataDeCriacao;
+	private Date dataDeCriacao = new Date();
 	
 	public Dica(){
 		usuariosQueJaVotaram = new ArrayList<String>();
 		usuarioqueQueJaDenunciaram = new ArrayList<String>();
-		dataDeCriacao = Calendar.getInstance().getTime();
 	}
 
 	public Date getDataDeCriacao() {
@@ -123,11 +122,15 @@ public abstract class Dica implements Comparable<Dica>{
 	}
 	
 	public String getIndiceConcordancia() {
+		return calculaIndiceConcordancia();
+	}
+	
+	private String calculaIndiceConcordancia() {
 		int soma = concordancias + discordancias;
 		if(soma == 0){
 			return "0";
 		}
-		return String.format("%.2f", this.getConcordancias()/((float) soma));
+		return String.format("%.2f", this.getConcordancias()/((float)soma));
 	}
 	
 	public int getFlag() {

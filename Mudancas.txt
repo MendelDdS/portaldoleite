@@ -1,15 +1,21 @@
 Alunos: Mendelssohn Dantas de Sá - 113210581
-	Lucas Nascimento Cabral -
-------------------------------------------------------------Mudanças feitas no código-----------------------------------------------------------------------
+	
+Lucas Nascimento Cabral 
+Link: leiteflix.herokuapp.com
 
-1. Classe Application: O método cadastrarDica(idTema) utilizava várias vezes as mesmas linhas de código, então isso foi reduzido a um método que faz todo o trabalho.
-
+-
+------------------------------------------------------------Mudanças feitas no código---------------------------------------------------------------------
+1. Classe Application: O método cadastrarDica(idTema) utilizava várias vezes as mesmas linhas de código, então isso foi reduzido criando uma classe que faz essa tarefa.
 2. Classe Tema: Agora os métodos getMedia() e getMediana() não fazem os cálculos.
+
 
 3. Classes LoginTest e RegistroTest: As duas classes faziam a mesma coisa em alguns momentos, então esse dever foi passado para uma classe abstrata.
 
+
 4. Classe MetaDica: O método getIndiceConcordancia() não faz mais o calculo, foi criado um método para isso. O mesmo para o método getDicasAdicionadas() que fazia ajustes das dicas.
+
 
 5. Classes Dica, MetaDica e Tema: Métodos que estavam em inglês foram traduzidos
 
 
+.

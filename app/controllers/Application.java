@@ -14,6 +14,7 @@ import models.Disciplina;
 import models.MetaDica;
 import models.Tema;
 import models.dao.GenericDAOImpl;
+import models.gerenciador.GerenciadorDeDica;
 import models.organizador.OrganizaPorConcordancia;
 import models.organizador.OrganizaPorDiscordancia;
 import models.organizador.OrganizaPorMaisRecentes;
@@ -137,19 +138,11 @@ public class Application extends Controller {
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
 		return ok(views.html.erro.render(disciplinas));
 	}
-	
-	private static void setInformacoesDaDica(Tema tema, Dica dica) {
-		String userName = session("username");
-		tema.addDica(dica);
-		dica.setTema(tema);
-		dica.setUser(userName);
-		dao.persist(dica);	
-	}
-	
+
 	@Transactional
 	@Security.Authenticated(Secured.class)
 	public static Result cadastrarDica(long idTema) {
-		
+		GerenciadorDeDica gerencia = new GerenciadorDeDica();
 		DynamicForm filledForm = Form.form().bindFromRequest();
 		
 		Map<String,String> formMap = filledForm.data();
@@ -157,7 +150,8 @@ public class Application extends Controller {
 		//long idTema = Long.parseLong(formMap.get("idTema"));
 		
 		Tema tema = dao.findByEntityId(Tema.class, idTema);
-		
+		String userName = session("username");
+
 		if (filledForm.hasErrors()) {
 			return tema(idTema);
 		} else {
@@ -166,28 +160,27 @@ public class Application extends Controller {
 				case "assunto":
 					String assunto = formMap.get("assunto");
 					DicaAssunto dicaAssunto = new DicaAssunto(assunto);
-					
-					setInformacoesDaDica(tema, dicaAssunto);				
+					gerencia.setDica(dicaAssunto);
+					gerencia.setInformacoesDaDica(userName, tema, dao);				
 					break;
 				case "conselho":
 					String conselho = formMap.get("conselho");
 					DicaConselho dicaConselho = new DicaConselho(conselho);
-					
-					setInformacoesDaDica(tema, dicaConselho);		
+					gerencia.setDica(dicaConselho);
+					gerencia.setInformacoesDaDica(userName, tema, dao);		
 					break;
 				case "disciplina":
 					String disciplinas = formMap.get("disciplinas");
 					String razao = formMap.get("razao");
-					
 					DicaDisciplina dicaDisciplina = new DicaDisciplina(disciplinas, razao);
-					
-					setInformacoesDaDica(tema, dicaDisciplina);				
+					gerencia.setDica(dicaDisciplina);
+					gerencia.setInformacoesDaDica(userName, tema, dao);										
 					break;
 				case "material":
 					String url = formMap.get("url");
 					DicaMaterial dicaMaterial = new DicaMaterial(url);
-									
-					setInformacoesDaDica(tema, dicaMaterial);			
+					gerencia.setDica(dicaMaterial);
+					gerencia.setInformacoesDaDica(userName, tema, dao);			
 					break;
 				default:
 					break;

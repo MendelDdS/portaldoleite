@@ -41,6 +41,11 @@ public class Application extends Controller {
     }
 	
 	@Transactional
+	public static List<Disciplina> getDisciplinas() {
+		return dao.findAllByClassName(Disciplina.class.getName());
+	}
+	
+	@Transactional
 	public static Result getOrdenacao(){
 		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
 		List<Dica> dicas = dao.findAllByClassName(Dica.class.getName());

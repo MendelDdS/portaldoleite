@@ -68,6 +68,7 @@ public abstract class Dica implements Comparable<Dica>{
 	public Dica(){
 		usuariosQueJaVotaram = new ArrayList<String>();
 		usuarioqueQueJaDenunciaram = new ArrayList<String>();
+		dataDeCriacao = Calendar.getInstance().getTime();
 	}
 
 	public Date getDataDeCriacao() {

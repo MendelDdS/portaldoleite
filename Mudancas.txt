@@ -12,5 +12,4 @@ Alunos: Mendelssohn Dantas de Sá - 113210581
 
 5. Classes Dica, MetaDica e Tema: Métodos que estavam em inglês foram traduzidos
 
-6. As views foram refatoradas com um template mainTop.
 
